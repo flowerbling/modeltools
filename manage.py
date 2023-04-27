@@ -2,9 +2,25 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from dotenv import find_dotenv, load_dotenv
 
+
+def init():
+    """
+        Init the environ from env file
+    """
+    env_path = find_dotenv()
+    env = os.environ.get("Env")
+    if env:
+        p = f'{env_path}.{env}'
+        if os.path.exists(p):
+            env_path = p
+
+    load_dotenv(env_path)
+    
 
 def main():
+    init()
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'modeltools.settings')
     try:

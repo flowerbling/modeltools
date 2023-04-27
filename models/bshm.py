@@ -4,11 +4,11 @@
 import os
 import cv2
 from modelscope.pipelines import pipeline
-from modelscope.utils.constant import Tasks
-
 
 
 _TEST_IMAGE = "test_image.jpg"
+
+
 def bsgm(file_path: str):
     """
         Args:
@@ -16,7 +16,7 @@ def bsgm(file_path: str):
     """
     p = pipeline('portrait-matting', 'damo/cv_unet_image-matting', device='cpu')
     generate_result = p(file_path)
-    cv2.imwrite('result.png', generate_result['output_img'])
+    cv2.imwrite('_output_bshm.png', generate_result['output_img'])
 
 
 bsgm(os.path.join(os.path.dirname(__file__), _TEST_IMAGE))

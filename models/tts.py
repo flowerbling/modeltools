@@ -1,8 +1,15 @@
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
-import modelscope.models.audio.tts.sambert_hifi
-def tts(text: str):
-    p = pipeline('text-to-speech', 'damo/speech_sambert-hifigan_tts_zh-cn_16k', device='cpu')
-    print(p(text))
+from modelscope.outputs import OutputKeys
 
-# tts("北京今天天气怎么样")
+
+def tts(text: str):
+    model_id = 'damo/speech_sambert-hifigan_tts_zh-cn_16k'
+    sambert_hifigan_tts = pipeline(task=Tasks.text_to_speech, model=model_id)
+    output = sambert_hifigan_tts(input=text, voice='zhitian_emo')
+    wav = output[OutputKeys.OUTPUT_WAV]
+    with open('_output_tts.wav', 'wb') as f:
+        f.write(wav)
+
+
+print(tts("北京今天天气怎么样"))
