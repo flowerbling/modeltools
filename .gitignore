@@ -1,3 +1,4 @@
 _test*.ipymb
 _output_*
-.env.prod*
+modeltools/settings_*.py
+.env_*

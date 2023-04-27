@@ -10,19 +10,20 @@ def init():
         Init the environ from env file
     """
     env_path = find_dotenv()
-    env = os.environ.get("Env")
-    if env:
-        p = f'{env_path}.{env}'
-        if os.path.exists(p):
-            env_path = p
+    # env = os.environ.get("ENV")
+    # if env:
+    #     p = f'{env_path}.{env}'
+    #     if os.path.exists(p):
+    #         env_path = p
 
     load_dotenv(env_path)
-    
+
 
 def main():
-    init()
     """Run administrative tasks."""
+    init()
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'modeltools.settings')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
