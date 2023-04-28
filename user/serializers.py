@@ -54,7 +54,3 @@ def parse_password(input: str) -> str:
         raise Exception("password not valid")
 
     return md5(input.encode('utf-8')).hexdigest()
-
-
-    return md5(input.encode('utf-8')).hexdigest()
-
