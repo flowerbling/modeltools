@@ -1,13 +1,15 @@
-from django.shortcuts import render
-from user.models import User, ScriptJob
-from user.serializers import UserSerializer,ScriptJobSerializer, parse_password
-from django.http import Http404, JsonResponse
-from rest_framework.response import Response
-from rest_framework.request import Request
-from rest_framework import mixins, generics
-from django.core.handlers.wsgi import WSGIRequest
 import json
+
+from django.core.handlers.wsgi import WSGIRequest
+from django.http import JsonResponse
+from rest_framework import generics, mixins
+from rest_framework.request import Request
+from rest_framework.response import Response
+
+from user.models import ScriptJob, User
+from user.serializers import ScriptJobSerializer, UserSerializer, parse_password
 from utils.jwt_token import Token
+
 
 class UserAPI(
     mixins.CreateModelMixin,

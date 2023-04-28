@@ -1,5 +1,7 @@
 from pathlib import Path
+
 from .utils import get_env_setting
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j*w9wn^--e%)k42^6vl&^frwpd*alop6gruvsdcg(8it+!z!ik'
 DEBUG = True
@@ -71,12 +73,3 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-OSS = {
-    "AccessId": "LTAI5tK3J6WEA7QFQFsWoTrk",
-    "AccessKey": "6hxFweLS5feDasU6f4SS9PcuveH8oL",
-    "OssBucket": "famous-avatar",
-    "EndPointName": "oss-cn-shanghai",
-    "EndPoint": "oss-cn-shanghai-internal.aliyuncs.com",
-    "PublicEndPoint": "oss-cn-shanghai.aliyuncs.com",
-    "Domain":"https://famous-avatar.oss-cn-shanghai.aliyuncs.com",
-}

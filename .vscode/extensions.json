@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "eamodio.gitlens",
+        "rebornix.project-snippets",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.isort",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "eamodio.gitlens",
+        "ms-toolsai.jupyter",
+        "wk-j.save-and-run",
+        "charliermarsh.ruff"
+    ]
+}
