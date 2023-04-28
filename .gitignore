@@ -1,4 +1,11 @@
-_test*.ipymb
+# Notebook test code
+_test*.ipynb
 _output_*
 modeltools/settings_*.py
 .env_*
+
+# Env Config
+.env.prod*
+
+# Pycache file
+__pycache__/

@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from user.models import User, LANGUAGE_CHOICES, STYLE_CHOICES
+from user.models import User, ScriptJob
 from hashlib import md5
-
+from uuid import uuid4
 
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -24,6 +24,27 @@ class UserSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+
+class ScriptJobSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    uuid = serializers.UUIDField()
+    user_id = serializers.IntegerField(default=0)
+    type = serializers.CharField(default="", max_length=255)
+    params = serializers.JSONField(default=dict)
+    status = serializers.CharField(default='pending', max_length=255)
+    status_detail = serializers.CharField(default=None)
+    created_at = serializers.DateTimeField()
+
+    def create(self, validated_data):
+        uuid = validated_data.get("uuid")
+        if not uuid:
+            validated_data["uuid"] = uuid4().hex
+
+        return ScriptJob.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.save()
+        return instance
 
 def parse_password(input: str) -> str:
     if len(input) < 5 or len(input) > 18:

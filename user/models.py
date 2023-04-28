@@ -14,3 +14,16 @@ class User(models.Model):
 
     class Meta:
         ordering = ['created_at']
+
+
+class ScriptJob(models.Model):
+    uuid = models.UUIDField(unique=True)
+    user_id = models.IntegerField(null=False, default=0)
+    type = models.CharField(null=False, default="", max_length=255)
+    params = models.JSONField(null=False, default=dict)
+    status = models.CharField(default='pending', null=False, max_length=255)
+    status_detail = models.TextField(default=None, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
