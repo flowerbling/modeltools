@@ -7,8 +7,7 @@ from const.script_job import ScriptJobStatus, ScriptJobType
 from extensions.celery_app import CeleryApp
 from extensions.oss import Oss
 from models.bsgm import Bsgm, bsgm
-from models.generate_recognition import (GenerateRecognition,
-                                         generate_recognition)
+from models.generate_recognition import GenerateRecognition, generate_recognition
 from models.repair_image import RepairPortrait, repair_portrait
 from models.tts import Tts, tts
 from user.models import ScriptJob
@@ -18,8 +17,7 @@ from user.models import ScriptJob
 def process_script():
     job: Optional[ScriptJob] = None
     with transaction.atomic():
-        # 暂时只处理一条
-        job = ScriptJob.objects.select_for_update().exclude(status=ScriptJobStatus.done).order_by("id asc").first()
+        job = ScriptJob.objects.select_for_update().filter(status=ScriptJobStatus.pending).order_by("id asc").first()
         if not job or job.status == ScriptJobStatus.running:
             return
 
