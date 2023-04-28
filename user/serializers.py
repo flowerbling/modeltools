@@ -1,7 +1,10 @@
-from rest_framework import serializers
-from user.models import User, ScriptJob
 from hashlib import md5
 from uuid import uuid4
+
+from rest_framework import serializers
+
+from user.models import ScriptJob, User
+
 
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -49,6 +52,9 @@ class ScriptJobSerializer(serializers.Serializer):
 def parse_password(input: str) -> str:
     if len(input) < 5 or len(input) > 18:
         raise Exception("password not valid")
+
+    return md5(input.encode('utf-8')).hexdigest()
+
 
     return md5(input.encode('utf-8')).hexdigest()
 
