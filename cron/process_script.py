@@ -15,11 +15,12 @@ from user.models import ScriptJob
 def process_script():
 	job: Optional[ScriptJob] = None
 	with transaction.atomic():
-		job = ScriptJob.objects.select_for_update().filter(status=ScriptJobStatus.pending).first()
-		if not job:
+		# 暂时只处理一条
+		job = ScriptJob.objects.select_for_update().exclude(status=ScriptJobStatus.done).order_by("id asc").first()
+		if not job or job.status == ScriptJobStatus.running:
 			return
 
-		job.status = 'running'
+		job.status = ScriptJobStatus.running
 		job.save()
 
 	try:

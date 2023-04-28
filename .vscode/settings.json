@@ -55,14 +55,6 @@
             "source.unusedImports": true,
         },
     },
-    "isort.args": [
-        "--profile",
-        "black",
-    ],
-    "python.linting.flake8Args": [
-        "--max-line-length=240",
-        "--ignore=E722"
-    ],
     "python.analysis.completeFunctionParens": true,
     "python.analysis.diagnosticSeverityOverrides": {
         "reportConstantRedefinition": "error",
