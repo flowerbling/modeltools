@@ -7,12 +7,20 @@ from pydantic import BaseModel
 
 MAX_TTS_TEXT_LENGTH = 1000
 
+
+class Voice:
+    zhitian = "zhitian_emo"
+    zhizhe = "zhizhe_emo"
+    zhiyan = "zhiyan_emo"
+    zhibei = "zhibei_emo"
+
 class Tts(BaseModel):
     text: str = ""
+    voice: str = Voice.zhitian
 
 
 @contextmanager
-def tts(text: str):
+def tts(text: str, voice: str = Voice.zhitian):
     if len(text) > MAX_TTS_TEXT_LENGTH:
         raise Exception(f"TTS 暂时只接受{MAX_TTS_TEXT_LENGTH}字以内的文本")
 

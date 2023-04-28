@@ -16,6 +16,7 @@ class OssExt():
     __endpoint: str = ""
     __public_endpoint: str = ""
 
+
     @property
     def name(self):
         return "oss"

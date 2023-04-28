@@ -40,13 +40,13 @@
         "unresolved-import"
     ],
     "python.analysis.memory.keepLibraryAst": true,
-    "python.formatting.provider": "none",
-    "python.formatting.blackArgs": [
-        "--line-length",
-        "100",
-        "-S",
-        "--fast",
-    ],
+    "python.formatting.provider": "autopep8",
+    // "python.formatting.blackArgs": [
+    //     "--line-length",
+    //     "120",
+    //     "-S",
+    //     "--fast",
+    // ],
     "[python]": {
         // "editor.defaultFormatter": "ms-python.isort",
         "editor.formatOnSave": true,
