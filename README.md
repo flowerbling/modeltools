@@ -11,7 +11,7 @@ conda activate modelscope
 
 ## 已经添加的模型
 ```markdown
-- 文本转语言
+- 文本转语音
 	输入 文本
 	输出 音频 .wav
 - 人像抠图
