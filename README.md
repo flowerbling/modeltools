@@ -10,6 +10,7 @@ conda activate modelscope
 ~~~
 
 ## 已经添加的模型
+```markdown
 - 文本转语言
 	输入 文本
 	输出 音频 .wav
@@ -22,3 +23,4 @@ conda activate modelscope
 - 通用物体识别
 	输入 图片
 	输出 文本， 得分
+```
