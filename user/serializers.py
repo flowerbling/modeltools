@@ -1,3 +1,4 @@
+from datetime import datetime
 from hashlib import md5
 from uuid import uuid4
 
@@ -30,13 +31,14 @@ class UserSerializer(serializers.Serializer):
 
 class ScriptJobSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    uuid = serializers.UUIDField()
+    uuid = serializers.UUIDField(default=uuid4().hex)
     user_id = serializers.IntegerField(default=0)
     type = serializers.CharField(default="", max_length=255)
     params = serializers.JSONField(default=dict)
+    result = serializers.JSONField(default={})
     status = serializers.CharField(default='pending', max_length=255)
     status_detail = serializers.CharField(default=None)
-    created_at = serializers.DateTimeField()
+    created_at = serializers.DateTimeField(default=datetime.now())
 
     def create(self, validated_data):
         uuid = validated_data.get("uuid")

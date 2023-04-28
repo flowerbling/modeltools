@@ -23,6 +23,7 @@ class ScriptJob(models.Model):
     params = models.JSONField(null=False, default=dict)
     status = models.CharField(default='pending', null=False, max_length=255)
     status_detail = models.TextField(default=None, null=True)
+    result = models.JSONField(null=True, default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
