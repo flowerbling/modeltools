@@ -7,6 +7,18 @@
 ~~~shell
 conda create -n modeltools
 conda activate modelscope
+# 如果需要跑Job
+pip install torch torchvision torchaudio
+pip install numpy==1.21.6
+pip install tensorflow==1.15.0
+pip install -r requirements.txt -f https://modelscope.oss-cn-beijing.aliyuncs.com/releases/repo.html # 跑模型job的环境 需要linux环境
+
+sh cron-start.sh
+
+# Web的环境
+pip install -r web_requirements.txt
+
+python manage.py runserver
 ~~~
 
 ## 已经添加的模型
