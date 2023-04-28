@@ -8,6 +8,6 @@ class ScriptJobStatus:
 class ScriptJobType:
     tts = 'tts'
     bshm = 'bshm'
-
-
+    repair_portrait = 'repair_portrait'
+    generate_recognition = 'generate_recognition'
 
