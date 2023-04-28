@@ -24,19 +24,25 @@ def process_script():
 		job.save()
 
 	try:
+		result = {}
 		if job.type == ScriptJobType.tts:
-			process_tts_job(job)
+			result = process_tts_job(job)
 		elif job.type == ScriptJobType.bshm:
-			process_bsgm_job(job)
+			result = process_bsgm_job(job)
 		else:
 			raise Exception("Unknown Job Type")
+
+		job.status = ScriptJobStatus.done
+		job.result = result # type: ignore
+		job.save()
+
 	except Exception as e:
 		job.status = ScriptJobStatus.failed
 		job.status_detail = f"Error: {e.__str__()}\n\n {sys.exc_info()}"
 		job.save()
 
 
-def process_tts_job(job: ScriptJob):
+def process_tts_job(job: ScriptJob) -> dict:
 	"""Translate a text to a voice, then save to the oss"""
 	tts_params = Tts.parse_raw(job.params)
 	if not tts_params.text:
@@ -45,10 +51,10 @@ def process_tts_job(job: ScriptJob):
 	with tts(tts_params.text) as data:
 		oss_url = Oss.upload_data(data, f"/model-result/tts/{job.user_id}/{job.uuid}.wav")
 		job.status = ScriptJobStatus.done
-		job.result = {"url": oss_url} # type: ignore
-		job.save()
+		result = {"url": oss_url} # type: ignore
+		return result
 
-def process_bsgm_job(job: ScriptJob):
+def process_bsgm_job(job: ScriptJob) -> dict:
 	"""Pick a human from a image as a new image, then save to the oss"""
 	bsgm_params = Bsgm.parse_raw(job.params)
 	if not bsgm_params.file_url:
@@ -56,6 +62,5 @@ def process_bsgm_job(job: ScriptJob):
 
 	with bsgm(bsgm_params.file_url) as file:
 		oss_url = Oss.upload_file(file, f"/model-result/bsgm/{job.user_id}/{job.uuid}.jpg")
-		job.status = ScriptJobStatus.done
-		job.result = {"url": oss_url} # type: ignore
-		job.save()
+		result = {"url": oss_url} # type: ignore
+		return result
