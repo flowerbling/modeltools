@@ -1,7 +1,7 @@
 
-from extensions.celery.celery_app import celery_app
+from extensions.celery_app import CeleryApp
 
-celery_app.conf.beat_schedule = {
+CeleryApp.conf.beat_schedule = {
 #     'name': {
 #         'task': func.name,
 #         'schedule': timedelta(seconds=3),
