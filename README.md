@@ -8,3 +8,17 @@
 conda create -n modeltools
 conda activate modelscope
 ~~~
+
+## 已经添加的模型
+- 文本转语言
+	输入 文本
+	输出 音频 .wav
+- 人像抠图
+	输入 图片
+	输出 图片
+- 人像增强
+	输入 图片
+	输出 图片
+- 通用物体识别
+	输入 图片
+	输出 文本， 得分
