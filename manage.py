@@ -10,11 +10,11 @@ def init():
         Init the environ from env file
     """
     env_path = find_dotenv()
-    # env = os.environ.get("ENV")
-    # if env:
-    #     p = f'{env_path}.{env}'
-    #     if os.path.exists(p):
-    #         env_path = p
+    env = os.environ.get("ENV")
+    if env:
+        p = f'{env_path}.{env}'
+        if os.path.exists(p):
+            env_path = p
 
     load_dotenv(env_path)
 
@@ -33,7 +33,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()

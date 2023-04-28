@@ -4,6 +4,7 @@ from user import views
 
 urlpatterns = [
     path('', views.UserAPI.as_view()),
+	path('jobs/', views.ScriptJobAPI.as_view()),
     path('login/', views.login),
 ]
 
