@@ -15,7 +15,6 @@ class  Bsgm(BaseModel):
     file_url: str = ""
 
 
-
 @contextmanager
 def bsgm(file_path: str):
     """

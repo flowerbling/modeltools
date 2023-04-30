@@ -15,7 +15,6 @@ class RepairPortrait(BaseModel):
     file_url: str = ""
 
 
-
 @contextmanager
 def repair_portrait(file_path: str):
     """

@@ -1,10 +1,11 @@
 import sys
+
 from typing import Optional
 
 from django.db import transaction
 
 from const.script_job import ScriptJobStatus, ScriptJobType
-from extensions.celery_app import CeleryApp
+from extensions.celery_app import celery_app
 from extensions.oss import Oss
 from models.bsgm import Bsgm, bsgm
 from models.generate_recognition import GenerateRecognition, generate_recognition
@@ -13,11 +14,11 @@ from models.tts import Tts, tts
 from user.models import ScriptJob
 
 
-@CeleryApp.task
+@celery_app.task
 def process_script():
     job: Optional[ScriptJob] = None
     with transaction.atomic():
-        job = ScriptJob.objects.select_for_update().filter(status=ScriptJobStatus.pending).order_by("id asc").first()
+        job = ScriptJob.objects.select_for_update().filter(status=ScriptJobStatus.pending).order_by("id").first()
         if not job or job.status == ScriptJobStatus.running:
             return
 
@@ -49,42 +50,44 @@ def process_script():
 
 def process_tts_job(job: ScriptJob) -> dict:
     """Translate a text to a voice, then save to the oss"""
-    tts_params = Tts.parse_raw(job.params)
+    tts_params = Tts.parse_obj(job.params)
     if not tts_params.text:
         raise Exception("tts text is Empty")
 
-    with tts(tts_params.text, tts_params.voice) as data:
-        oss_url = Oss.upload_data(data, f"/model-result/tts/{job.user_id}/{job.uuid}.wav")
+    with tts(tts_params.text, tts_params.voice) as file:
+        oss_url = Oss.upload_file(file, f"/model-result/tts/{job.user_id}/{job.uuid}.wav")
+        print(oss_url)
         job.status = ScriptJobStatus.done
-        result = {"url": oss_url} # type: ignore
+        result = {"audio": oss_url} # type: ignore
         return result
 
 
 def process_bsgm_job(job: ScriptJob) -> dict:
     """Pick a human from a image as a new image, then save to the oss"""
-    bsgm_params = Bsgm.parse_raw(job.params)
+    bsgm_params = Bsgm.parse_obj(job.params)
     if not bsgm_params.file_url:
         raise Exception("file url is Empty")
 
     with bsgm(bsgm_params.file_url) as file:
         oss_url = Oss.upload_file(file, f"/model-result/bsgm/{job.user_id}/{job.uuid}.jpg")
-        result = {"url": oss_url} # type: ignore
+        result = {"image": oss_url} # type: ignore
         return result
 
 
 def process_repair_portrait_job(job: ScriptJob) -> dict:
-    repair_portrait_params = RepairPortrait.parse_raw(job.params)
+    repair_portrait_params = RepairPortrait.parse_obj(job.params)
     if not repair_portrait_params.file_url:
         raise Exception("file url is Empty")
 
     with repair_portrait(repair_portrait_params.file_url) as file:
         oss_url = Oss.upload_file(file, f"/model-result/repair_portrait/{job.user_id}/{job.uuid}.jpg")
-        result = {"url": oss_url} # type: ignore
+        result = {"image": oss_url} # type: ignore
         return result
 
 
 def process_generate_recognition_job(job: ScriptJob) -> dict:
-    generate_recognition_params = GenerateRecognition.parse_raw(job.params)
+    generate_recognition_params = GenerateRecognition.parse_obj(job.params)
     if not generate_recognition_params.file_url:
         raise Exception("file url is Empty")
     return generate_recognition(file_path=generate_recognition_params.file_url)
+

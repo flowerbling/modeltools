@@ -2,4 +2,4 @@
 set -e
 
 python pre_start.py
-celery worker -A cron.main -l info -c 8 --beat
+celery -A extensions.celery_app worker -l info -c 8 --beat
