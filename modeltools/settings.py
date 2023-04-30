@@ -4,7 +4,7 @@ from .utils import get_env_setting
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j*w9wn^--e%)k42^6vl&^frwpd*alop6gruvsdcg(8it+!z!ik'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -13,14 +13,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'user',
 ]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8080', 'http://localhost:8080', 'http://0.0.0.0:8080')
+CORS_ORIGIN_METHODS = ('DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST')
+NO_AUTH_ROUTERS = ['/users/', '/users/login/']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'modeltools.middleware.JWTAuthMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
+    'modeltools.middleware.ExceptionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -52,7 +61,6 @@ DATABASES = {
         'NAME': get_env_setting("MysqlName")  # 数据库名字
     }
 }
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
