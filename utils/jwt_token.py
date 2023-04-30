@@ -8,6 +8,7 @@ from pydantic import BaseModel
 
 class Token(BaseModel):
     username: str = ""
+    uid: int = 0
     expire: int = (datetime.now() + timedelta(days=364)).timestamp() # type: ignore
 
     @staticmethod
@@ -28,7 +29,7 @@ class Token(BaseModel):
             claims = jwt.decode(jwt_str, os.environ.get("AuthKey", ""), algorithms=['HS256'])
         except Exception:
             return None
-        return cls(**claims.items()) # type: ignore
+        return cls(**dict(claims.items())) # type: ignore
 
     def to_jwt(self):
         claims = {}

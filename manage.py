@@ -18,12 +18,12 @@ def init():
             env_path = p
 
     load_dotenv(env_path)
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'modeltools.settings')
 
 
 def main():
     """Run administrative tasks."""
     init()
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'modeltools.settings')
 
     try:
         from django.core.management import execute_from_command_line

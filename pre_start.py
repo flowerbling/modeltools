@@ -2,12 +2,9 @@ import os
 
 import django
 
-from manage import init
-
 
 def main() -> None:
-    init()
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'modeltools.settings')
     django.setup()
 
 

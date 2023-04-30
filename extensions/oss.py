@@ -32,15 +32,14 @@ class OssExt():
     def __init__(self):
         access_id = os.environ.get("OssAccessId")
         access_key =os.environ.get("OssAccessKey")
-        bucket = os.environ.get("OssOssBucket")
+        bucket = os.environ.get("OssBucket")
 
         self.__endpoint_name = os.environ.get("OssEndPointName", "")
         self.__endpoint = os.environ.get("OssEndPoint", "")
         self.__public_endpoint =os.environ.get("OssPublicEndPoint", "")
-
         self.__oss = oss2.Bucket(
             oss2.Auth(access_key_id=access_id, access_key_secret=access_key),
-            self.__endpoint,
+            self.__public_endpoint,
             bucket,
         )
 
@@ -49,7 +48,6 @@ class OssExt():
         self.delete_object = self.__oss.delete_object
         self.object_exists = self.__oss.object_exists
         self.get_object = self.__oss.get_object
-        self.object_exists = self.__oss.object_exists
 
     def to_oss_url(
         self, path: Union[str, os.PathLike], internal: bool = False, expires: int = 0
