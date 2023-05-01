@@ -26,7 +26,7 @@ def repair_portrait(file_path: str):
     generate_result = p(file_path)
     if not generate_result:
         raise Exception("process image failed")
-    with tempfile.NamedTemporaryFile() as tmp:
+    with tempfile.NamedTemporaryFile(suffix='.png') as tmp:
         cv2.imwrite(tmp.name, generate_result['output_img'])  # type: ignore
         yield tmp.name
 
