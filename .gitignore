@@ -9,3 +9,6 @@ modeltools/settings_*.py
 
 # Pycache file
 __pycache__/
+
+# celery runtime file
+celerybeat-schedule.*
