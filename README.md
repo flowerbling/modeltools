@@ -3,6 +3,12 @@
 [魔搭社区模型库](https://modelscope.cn/models)
 从魔搭社区里拿一些有意思的模型自己用。 任务做成队列式的，小垃圾服务器扛不住。
 
+Web作为生产者
+Celery作为消费者， 可以在多个服务器上启动多个消费者消费任务
+可以使用nohup 启动 cron-start.sh
+~~~shell
+nohup sh cron-start.sh > cron.log 2>&1 &
+~~~
 ## 环境配置
 ~~~shell
 conda create -n modeltools
@@ -36,3 +42,11 @@ python manage.py runserver
 	输入 图片
 	输出 文本， 得分
 ```
+
+## Web预览
+[前端Github链接](https://github.com/flowerbling/modeltools-frontend)
+![Alt](images/home.png)
+![Alt](images/new.png)
+![Alt](images/tts.png)
+![Alt](images/gen.png)
+![Alt](images/pick.png)
