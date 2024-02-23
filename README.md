@@ -3,8 +3,7 @@
 [魔搭社区模型库](https://modelscope.cn/models)
 从魔搭社区里拿一些有意思的模型自己用。 任务做成队列式的，小垃圾服务器扛不住。
 
-Web作为生产者
-Celery作为消费者， 可以在多个服务器上启动多个消费者消费任务
+Web创建任务，服务器启动Celery消费， 可以在多个服务器上启动多个消费者消费任务
 可以使用nohup 启动 cron-start.sh
 ~~~shell
 nohup sh cron-start.sh > cron.log 2>&1 &
