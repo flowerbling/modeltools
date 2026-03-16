@@ -1,6 +1,51 @@
-<minimax:tool_call>
-<invoke name="lookup_terms">
-<parameter name="terms">["容器", "虚拟化"]</parameter>
-<parameter name="term_set_id">35ba5440-7f16-4d0d-8e47-5f6f0a8656c7</parameter>
-</invoke>
-</minimax:tool_call>
+# modeltools
+
+[ModelScope Model Library](https://modelscope.cn/models)
+Fetching some interesting models from ModelScope for personal use. The task is implemented as a queue-based system, as a small low-end server cannot handle it.
+
+Web creates tasks, the server starts Celery to consume tasks. Multiple consumers can be started on multiple servers to process tasks.
+You can use nohup to start cron-start.sh:
+~~~shell
+nohup sh cron-start.sh > cron.log 2>&1 &
+~~~
+## Environment Setup
+~~~shell
+conda create -n modeltools
+conda activate modelscope
+# If you need to run Job
+pip install torch torchvision torchaudio
+pip install numpy==1.21.6
+pip install tensorflow==1.15.0
+pip install -r requirements.txt -f https://modelscope.oss-cn-beijing.aliyuncs.com/releases/repo.html # Environment for running model jobs, requires Linux
+
+sh cron-start.sh
+
+# Web environment
+pip install -r web_requirements.txt
+
+python manage.py runserver
+~~~
+
+## Added Models
+```markdown
+- Text-to-Speech
+    Input: Text
+    Output: Audio .wav
+- Portrait Matting
+    Input: Image
+    Output: Image
+- Portrait Enhancement
+    Input: Image
+    Output: Image
+- General Object Detection
+    Input: Image
+    Output: Text, Score
+```
+
+## Web Preview
+[Frontend GitHub Link](https://github.com/flowerbling/modeltools-frontend)
+![Alt](images/home.png)
+![Alt](images/new.png)
+![Alt](images/tts.png)
+![Alt](images/gen.png)
+![Alt](images/pick.png)
