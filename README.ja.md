@@ -1,10 +1,10 @@
 # modeltools
 
-[魔搭コミュニティモデルライブラリ](https://modelscope.cn/models)
-魔搭コミュニティから面白いモデルを入手して自分が使用する。タスクをキュー式にすると、小さな安いサーバーでも対応できる。
+[魔搭社区モデルライブラリ](https://modelscope.cn/models)
+魔搭コミュニティから интересные モデルを引っ張って自分で使う。タスクはキュー式にして、小規模なサーバーでは対応できない。
 
-Webでタスクを作成すると、サーバーがCeleryを起動してコンシュームし、複数のサーバーで複数のコンシューマーを起動してタスクをコンシュームできる
-nohupを使用してcron-start.shを起動できる
+Webでタスクを作成、サーバーがCeleryを起動してコンシューマーがタスクを消費、複数のサーバーで複数のコンシューマーを起動してタスクを消費できる
+nohup で cron-start.sh を起動可能
 ~~~shell
 nohup sh cron-start.sh > cron.log 2>&1 &
 ~~~
@@ -26,26 +26,21 @@ pip install -r web_requirements.txt
 python manage.py runserver
 ~~~
 
-## 追加済みのモデル
+## 追加済みモデル
 ```markdown
 - テキストから音声へ
 	入力 テキスト
 	出力 音声 .wav
-- 人物画像切り抜き
+- 人物切り抜き
 	入力 画像
 	出力 画像
-- 人物画像強調
+- 人物強調
 	入力 画像
 	出力 画像
-- 汎用物体認識
+- 一般物体認識
 	入力 画像
 	出力 テキスト、スコア
 ```
 
 ## Webプレビュー
 [フロントエンドGithubリンク](https://github.com/flowerbling/modeltools-frontend)
-![Alt](images/home.png)
-![Alt](images/new.png)
-![Alt](images/tts.png)
-![Alt](images/gen.png)
-![Alt](images/pick.png)
