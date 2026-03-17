@@ -1,14 +1,14 @@
 # modeltools
 
-[魔搭コミュニティモデルライブラリ](https://modelscope.cn/models)
-魔搭コミュニティから面白いモデルを入手して自分が使用する。タスクをキュー式にすると、小さな安いサーバーでも対応できる。
+[魔搭社区モデルライブラリ](https://modelscope.cn/models)
+魔搭社区から面白いモデルを自由に引っ張って使えます。タスクをキューイング方式にして、小規模なサーバーでは対応しきれない問題を解決します。
 
-Webでタスクを作成すると、サーバーがCeleryを起動してコンシュームし、複数のサーバーで複数のコンシューマーを起動してタスクをコンシュームできる
-nohupを使用してcron-start.shを起動できる
+Webでタスクを作成し、サーバーでCeleryがコンシューマとして処理、複数のサーバーで複数のコンシューマを起動してタスクを処理できます
+nohupでcron-start.shを起動できます
 ~~~shell
 nohup sh cron-start.sh > cron.log 2>&1 &
 ~~~
-## 環境設定
+## 環境設定（テスト環境）
 ~~~shell
 conda create -n modeltools
 conda activate modelscope
@@ -16,7 +16,7 @@ conda activate modelscope
 pip install torch torchvision torchaudio
 pip install numpy==1.21.6
 pip install tensorflow==1.15.0
-pip install -r requirements.txt -f https://modelscope.oss-cn-beijing.aliyuncs.com/releases/repo.html # モデルjobの環境 Linux環境が必要
+pip install -r requirements.txt -f https://modelscope.oss-cn-beijing.aliyuncs.com/releases/repo.html # モデルJobを実行するための環境。Linux環境が必要
 
 sh cron-start.sh
 
@@ -28,22 +28,22 @@ python manage.py runserver
 
 ## 追加済みのモデル
 ```markdown
-- テキストから音声へ
-	入力 テキスト
-	出力 音声 .wav
-- 人物画像切り抜き
-	入力 画像
-	出力 画像
-- 人物画像強調
-	入力 画像
-	出力 画像
-- 汎用物体認識
-	入力 画像
-	出力 テキスト、スコア
+- テキスト読み上げ（Text-to-Speech）
+	入力：テキスト
+	出力：音声 .wav
+- ポートレート切り抜き
+	入力：画像
+	出力：画像
+- ポートレート強調
+	入力：画像
+	出力：画像
+- 一般物体認識
+	入力：画像
+	出力：テキスト、スコア
 ```
 
 ## Webプレビュー
-[フロントエンドGithubリンク](https://github.com/flowerbling/modeltools-frontend)
+[フロントエンドGitHubリンク](https://github.com/flowerbling/modeltools-frontend)
 ![Alt](images/home.png)
 ![Alt](images/new.png)
 ![Alt](images/tts.png)
