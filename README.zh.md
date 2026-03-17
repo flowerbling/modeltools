@@ -44,8 +44,3 @@ python manage.py runserver
 
 ## Web预览
 [前端Github链接](https://github.com/flowerbling/modeltools-frontend)
-![Alt](images/home.png)
-![Alt](images/new.png)
-![Alt](images/tts.png)
-![Alt](images/gen.png)
-![Alt](images/pick.png)
