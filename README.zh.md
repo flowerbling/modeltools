@@ -8,7 +8,7 @@ Web创建任务，服务器启动Celery消费， 可以在多个服务器上启�
 ~~~shell
 nohup sh cron-start.sh > cron.log 2>&1 &
 ~~~
-## 环境配置
+## 环境配置 (测试环境)
 ~~~shell
 conda create -n modeltools
 conda activate modelscope
